@@ -1,0 +1,470 @@
+/* ============================================================
+   HostScreen — minimal white/black arena
+   Only accent colors: blue (#2563eb) for P1, red (#dc2626) for P2
+   ============================================================ */
+
+.host-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: 'Rajdhani', sans-serif;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clash flash */
+.clash-flash {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 200;
+  pointer-events: none;
+  animation: clash-fade 0.2s ease-out forwards;
+}
+
+@keyframes clash-fade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Connection dot */
+.host-conn-dot {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 100;
+}
+.conn-on  { background: #16a34a; }
+.conn-off { background: #dc2626; }
+
+
+/* ====== WAITING ====== */
+
+.host-waiting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  max-width: 700px;
+  width: 100%;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.host-title {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: #111;
+  margin: 0;
+  line-height: 1;
+}
+
+.code-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.code-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.45em;
+  color: #9ca3af;
+}
+
+.code-value {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(4rem, 10vw, 7rem);
+  color: #111;
+  letter-spacing: 0.15em;
+  line-height: 1;
+}
+
+.code-hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+}
+
+.player-slots {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.player-slot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.2rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Black Ops One', cursive;
+  font-size: 1rem;
+  color: #9ca3af;
+  background: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+.slot-filled { background: #fff; }
+
+.slot-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.slot-dot-empty { background: #d1d5db; }
+
+.slot-ready {
+  margin-left: auto;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  color: #16a34a;
+}
+
+.slot-waiting { color: #9ca3af; }
+
+.waiting-rules {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rules-row {
+  font-size: 0.85rem;
+  color: #6b7280;
+  letter-spacing: 0.03em;
+}
+
+.player-count {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: #9ca3af;
+}
+
+
+/* ====== RULES ====== */
+
+.host-rules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.rules-pre {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: #9ca3af;
+}
+
+.rules-heading {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #111;
+  margin: 0;
+}
+
+.rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+}
+
+.rules-list li {
+  font-size: 1.05rem;
+  color: #374151;
+  padding: 0.7rem 1.2rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.rules-list strong { color: #111; }
+
+.rules-matchup {
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.rules-vs {
+  font-size: 1rem;
+  color: #9ca3af;
+}
+
+
+/* ====== COUNTDOWN ====== */
+
+.host-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.countdown-matchup {
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: #111;
+}
+
+.countdown-vs { font-size: 0.9rem; color: #9ca3af; }
+
+.countdown-num {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(8rem, 22vw, 14rem);
+  color: #111;
+  line-height: 1;
+  animation: countdown-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.countdown-fight {
+  font-size: clamp(4rem, 12vw, 8rem);
+  color: #111;
+}
+
+@keyframes countdown-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+
+/* ====== BATTLE ARENA ====== */
+
+.host-battle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Health + name bar at the top */
+.arena-top {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1.5px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.arena-player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.left-info { align-items: flex-start; }
+.right-info { align-items: flex-end; }
+
+.arena-name {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  letter-spacing: 0.05em;
+}
+
+.arena-center-label {
+  flex-shrink: 0;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  color: #9ca3af;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+/* Five health pips */
+.health-bar {
+  display: flex;
+  gap: 5px;
+}
+
+.health-bar-left { flex-direction: row; }
+.health-bar-right { flex-direction: row-reverse; }
+
+.health-pip {
+  width: clamp(14px, 2.5vw, 22px);
+  height: clamp(14px, 2.5vw, 22px);
+  border-radius: 50%;
+  transition: background 0.25s ease;
+}
+
+/* Arena floor where stickmen stand */
+.arena-floor {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 5% 3rem;
+  position: relative;
+}
+
+/* Ground line */
+.arena-floor::after {
+  content: '';
+  position: absolute;
+  bottom: 2.5rem;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: #e5e7eb;
+}
+
+.arena-divider-line {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  width: 2px;
+  height: 60%;
+  background: #e5e7eb;
+  transform: translateX(-50%);
+}
+
+.stickman-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.stickman-name {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(0.8rem, 1.8vw, 1.2rem);
+  letter-spacing: 0.05em;
+}
+
+/* Stickman SVG animations */
+.stickman {
+  transition: transform 0.15s ease;
+}
+
+/* Knockback: the character slides away and bounces back */
+.stickman.stickman-knockback {
+  animation: knockback 0.4s ease-out;
+}
+
+.left-stickman .stickman.stickman-knockback {
+  animation-name: knockback-left;
+}
+
+.right-stickman .stickman.stickman-knockback {
+  animation-name: knockback-right;
+}
+
+/* P1 (left) gets knocked to the left */
+@keyframes knockback-left {
+  0%   { transform: scaleX(1) translateX(0);    }
+  30%  { transform: scaleX(1) translateX(-28px); }
+  60%  { transform: scaleX(1) translateX(-14px); }
+  100% { transform: scaleX(1) translateX(0);    }
+}
+
+/* P2 (right) gets knocked to the right; base scaleX is -1 (faces left) */
+@keyframes knockback-right {
+  0%   { transform: scaleX(-1) translateX(0);    }
+  30%  { transform: scaleX(-1) translateX(-28px); }
+  60%  { transform: scaleX(-1) translateX(-14px); }
+  100% { transform: scaleX(-1) translateX(0);    }
+}
+
+/* Attack lunge: character steps forward */
+.stickman.stickman-attack {
+  animation: attack-lunge 0.3s ease-out;
+}
+
+.left-stickman .stickman.stickman-attack {
+  animation-name: attack-lunge-left;
+}
+
+.right-stickman .stickman.stickman-attack {
+  animation-name: attack-lunge-right;
+}
+
+@keyframes attack-lunge-left {
+  0%   { transform: scaleX(1) translateX(0);   }
+  40%  { transform: scaleX(1) translateX(20px); }
+  100% { transform: scaleX(1) translateX(0);   }
+}
+
+@keyframes attack-lunge-right {
+  0%   { transform: scaleX(-1) translateX(0);   }
+  40%  { transform: scaleX(-1) translateX(20px); }
+  100% { transform: scaleX(-1) translateX(0);   }
+}
+
+
+/* ====== WINNER SCREEN ====== */
+
+.host-winner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.winner-pre {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.55em;
+  color: #9ca3af;
+}
+
+.winner-name {
+  font-family: 'Black Ops One', cursive;
+  font-size: clamp(4rem, 11vw, 8rem);
+  line-height: 1;
+}
+
+.winner-loser {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.rematch-btn {
+  padding: 1rem 3rem;
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  background: #111;
+  border: 2px solid #111;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.rematch-btn:hover  { opacity: 0.8; }
+.rematch-btn:active { opacity: 0.6; }

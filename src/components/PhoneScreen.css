@@ -1,0 +1,482 @@
+/* ============================================================
+   PhoneScreen — minimal black-on-white controller UI
+   Colors: white background, black text, blue (P1), red (P2)
+   ============================================================ */
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #111111;
+  font-family: 'Rajdhani', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.1s ease;
+}
+
+/* Feedback background flashes */
+.phone-screen.feedback-damage { background: #fee2e2; }
+.phone-screen.feedback-hit    { background: #dcfce7; }
+.phone-screen.feedback-win    { background: #fef9c3; }
+
+/* Connection dot */
+.conn-dot {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 100;
+}
+.conn-on  { background: #16a34a; }
+.conn-off { background: #dc2626; }
+
+
+/* ====== JOIN SCREEN ====== */
+
+.phone-join {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+}
+
+.phone-logo { text-align: center; }
+
+.phone-title {
+  font-family: 'Black Ops One', cursive;
+  font-size: 2.4rem;
+  color: #111;
+  margin: 0;
+  line-height: 1;
+}
+
+.phone-sub {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.phone-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.35em;
+  color: #6b7280;
+}
+
+.form-input {
+  background: #f9fafb;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+.form-input:focus { border-color: #111; }
+
+.code-input {
+  font-family: 'Black Ops One', cursive;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 0.25em;
+}
+
+.form-error {
+  font-size: 0.82rem;
+  color: #dc2626;
+  text-align: center;
+}
+
+.join-btn {
+  width: 100%;
+  padding: 1rem;
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  background: #111;
+  border: 2px solid #111;
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  margin-top: 0.5rem;
+}
+.join-btn:active  { opacity: 0.75; }
+.join-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+
+/* ====== WAITING SCREEN ====== */
+
+.phone-waiting {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.waiting-badge {
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+.badge-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.4em;
+  color: #6b7280;
+  margin-bottom: 0.3rem;
+}
+
+.badge-name {
+  font-family: 'Black Ops One', cursive;
+  font-size: 2rem;
+}
+
+.waiting-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.waiting-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.waiting-text {
+  font-size: 0.85rem;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
+.motion-section {
+  width: 100%;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.motion-info {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.motion-btn {
+  padding: 0.7rem 1.5rem;
+  font-family: 'Black Ops One', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  background: transparent;
+  border: 2px solid;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.motion-btn:active { opacity: 0.7; }
+
+.motion-unavailable {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.motion-ready-badge {
+  font-size: 0.82rem;
+  color: #16a34a;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.room-display {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  letter-spacing: 0.1em;
+}
+
+
+/* ====== READY / COUNTDOWN SCREEN ====== */
+
+.phone-ready {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #111;
+}
+
+.ready-label {
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  animation: pulse-text 0.6s ease-in-out infinite alternate;
+}
+
+.ready-number {
+  font-family: 'Black Ops One', cursive;
+  font-size: 7rem;
+  line-height: 1;
+  animation: pop-in 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ready-fight {
+  font-family: 'Black Ops One', cursive;
+  font-size: 3.5rem;
+  line-height: 1;
+  animation: pop-in 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes pulse-text {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
+
+/* ====== BATTLE CONTROLLER ====== */
+
+.phone-battle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Status bar across the top */
+.battle-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1.5px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.battle-hp {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hp-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  color: #9ca3af;
+}
+
+.hp-pips {
+  display: flex;
+  gap: 3px;
+}
+
+.hp-pip {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.battle-name {
+  font-family: 'Black Ops One', cursive;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.battle-opponent {
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+/* Feedback pop-up text */
+.phone-feedback {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Black Ops One', cursive;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 50;
+  animation: feedback-pop 0.5s ease-out forwards;
+}
+
+@keyframes feedback-pop {
+  0%   { transform: scale(0.6) translateY(0);   opacity: 1; }
+  60%  { transform: scale(1.05) translateY(-8px); opacity: 1; }
+  100% { transform: scale(1) translateY(-20px);  opacity: 0; }
+}
+
+/* Block zone — the large tap area */
+.block-zone {
+  flex: 1;
+  margin: 0.75rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.blocking-active {
+  border-style: solid;
+}
+
+.block-label-idle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.block-label-main {
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.4rem;
+  color: #111;
+  letter-spacing: 0.08em;
+}
+
+.block-label-sub {
+  font-size: 0.72rem;
+  color: #6b7280;
+}
+
+.block-label-active {
+  font-family: 'Black Ops One', cursive;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  animation: pulse-text 0.4s ease-in-out infinite alternate;
+}
+
+/* Attack section at the bottom */
+.attack-section {
+  padding: 0.75rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.motion-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
+.attack-btn {
+  width: 100%;
+  padding: 1.1rem;
+  font-family: 'Black Ops One', cursive;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 0.1s ease;
+  user-select: none;
+}
+.attack-btn:active { filter: brightness(0.8); }
+
+.enable-motion-link {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  letter-spacing: 0.05em;
+}
+
+
+/* ====== WINNER / LOSER SCREEN ====== */
+
+.phone-winner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.winner-result {
+  font-family: 'Black Ops One', cursive;
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.winner-detail {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.winner-wait {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.25em;
+  color: #9ca3af;
+  margin-top: 1rem;
+}

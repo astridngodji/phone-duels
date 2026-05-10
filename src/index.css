@@ -1,0 +1,38 @@
+/* Global reset and base styles */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  /* Prevent scroll and zoom on mobile */
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #ffffff;
+  color: #111111;
+  -webkit-font-smoothing: antialiased;
+  /* Disable double-tap zoom on mobile */
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+button {
+  /* Disable the mobile tap highlight — we style focus ourselves */
+  -webkit-tap-highlight-color: transparent;
+}
+
+input {
+  /* Re-enable selection inside inputs */
+  user-select: text;
+  -webkit-user-select: text;
+}
